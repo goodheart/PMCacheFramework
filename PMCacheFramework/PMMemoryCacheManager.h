@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+static NSUInteger kPMCacheObjectValidSecond = 10 * 60;//十分钟
+
 static NSUInteger kPMCacheManagerCachedObjectCountLimit = 1000;
 
 @interface PMMemoryCacheManager : NSObject

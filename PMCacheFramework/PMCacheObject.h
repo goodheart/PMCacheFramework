@@ -8,14 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-static NSUInteger kPMCacheObjectValidSecond = 10 * 60;//十分钟
-
 @interface PMCacheObject : NSObject
 
 @property (nonatomic,copy) NSData * cacheData;
 @property (nonatomic,copy,readonly) NSDate * lastCachedTime;
 @property (nonatomic,assign,getter=isOutOfDate) BOOL outOfDate;
-//@property (nonatomic,assign) 
+//有效时间
+@property (nonatomic,assign) NSUInteger cacheObjectValidSecond;//以秒为单位，如果为0，表示没有过期时间
 
 - (id)initWithCacheData:(NSData *)cacheData;
 + (id)cacheObjectWithCacheData:(NSData *)cacheData;

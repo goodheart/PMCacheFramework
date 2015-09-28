@@ -7,8 +7,14 @@
 //
 
 #import "PMDiskCacheManager.h"
+
 #define kPMDiskCachePathName @"com.goodheart.diskCache"
-@interface PMDiskCacheManager ()
+
+@interface PMDiskCacheManager (){
+    NSFileManager * _defaultFileManager;
+}
+
+@property (nonatomic,strong) dispatch_queue_t operationQueue;
 
 @end
 
@@ -21,6 +27,17 @@ static NSString * _diskCachePath = nil;
     if (self) {
         //设置默认硬盘缓存地址
         _diskCachePath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:kPMDiskCachePathName];;
+        _operationQueue = dispatch_queue_create("com.goodheart.diskCache.fileOperation", DISPATCH_QUEUE_CONCURRENT);
+        
+        dispatch_async(self.operationQueue, ^{
+            _defaultFileManager = [[NSFileManager alloc] init];
+            
+            [_defaultFileManager createDirectoryAtPath:self.cachePath
+                           withIntermediateDirectories:YES
+                                            attributes:nil
+                                                 error:nil];
+            NSLog(@"%@",self.cachePath);
+        });
     }
     
     return self;
@@ -40,6 +57,11 @@ static NSString * _diskCachePath = nil;
 
 - (void)saveShouldCachedData:(NSData *)shouldCachedData forKey:(NSString *)key {
     
+    dispatch_async(self.operationQueue, ^{
+       
+        
+        
+    });
 }
 
 - (void)removeDataForKey:(NSString *)key {
@@ -54,5 +76,7 @@ static NSString * _diskCachePath = nil;
 - (NSString *)cachePath {
     return _diskCachePath;
 }
+
+
 
 @end

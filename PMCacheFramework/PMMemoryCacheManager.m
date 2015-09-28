@@ -63,6 +63,7 @@ static PMMemoryCacheManager * _cacheManager;
     
     if (nil == cacheObject) {
         cacheObject = [[PMCacheObject alloc] init];
+        cacheObject.cacheObjectValidSecond = kPMCacheObjectValidSecond;
     }
     
     [cacheObject updateData:cacheData];

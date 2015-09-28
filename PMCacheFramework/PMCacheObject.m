@@ -38,7 +38,11 @@
 
 #pragma mark - Property Getter
 - (BOOL)isOutOfDate {
-    return [[NSDate alloc] timeIntervalSinceDate:self.lastCachedTime] > kPMCacheObjectValidSecond;
+    if (self.cacheObjectValidSecond <= 0) {
+        return YES;
+    }
+    
+    return [[NSDate alloc] timeIntervalSinceDate:self.lastCachedTime] > self.cacheObjectValidSecond;
 }
 
 #pragma mark - Property Setter
