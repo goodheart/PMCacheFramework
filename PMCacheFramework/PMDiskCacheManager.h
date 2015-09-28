@@ -9,5 +9,16 @@
 #import <Foundation/Foundation.h>
 
 @interface PMDiskCacheManager : NSObject
+//缓存路径
+@property (nonatomic,copy,readonly) NSString * cachePath;
+
++ (id)sharedDiskCacheManager;
+
+//增 改
+- (void)saveShouldCachedData:(NSData *)shouldCachedData forKey:(NSString *)key;
+//删
+- (void)removeDataForKey:(NSString *)key;
+//查
+- (NSData *)dataForKey:(NSString *)key;
 
 @end
